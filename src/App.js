@@ -2,7 +2,7 @@ import React from 'react';
 import Welcome from './Welcome';
 import Login from './Login';
 import Navbar from './Navbar';
-import './App.scss';
+import './assets/App.scss';
 import { Switch, Route } from 'react-router-dom';
 
 function App() {
