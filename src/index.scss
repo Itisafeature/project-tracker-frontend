@@ -12,6 +12,8 @@ code {
     monospace;
 }
 
-body > #root {
-  min-height: 100vh;
+html,
+body,
+#root {
+  height: 100%;
 }

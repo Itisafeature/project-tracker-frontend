@@ -1,6 +1,27 @@
 .login-container {
   min-height: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+
+  input,
+  button {
+    align-self: center;
+  }
+
+  input {
+    width: 50%;
+    margin-bottom: 5px;
+  }
+
+  button {
+    width: 25%;
+  }
 }

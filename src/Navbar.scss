@@ -1,0 +1,12 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+
+  .navlinks-container {
+    display: flex;
+    height: 5%;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 5px;
+  }
+}
