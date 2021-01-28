@@ -1,7 +1,7 @@
 import React from 'react';
 import Welcome from './Welcome';
-import Login from './Login';
 import Navbar from './Navbar';
+import AuthenticationContainer from './AuthenticationContainer';
 import './assets/App.scss';
 import { Switch, Route } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/login">
-          <Login />
+          <AuthenticationContainer type="login" />
         </Route>
         <Route path="/">
           <Welcome />

@@ -2,10 +2,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #000000;
+  background: linear-gradient(90deg, white, #f3ca20 50%);
 
   .navlinks-container {
     display: flex;
     justify-content: flex-end;
     margin-right: 5px;
+
+    .navlink {
+      text-decoration: none;
+      color: black;
+      font-size: 1.25em;
+    }
+
+    .navlink:hover {
+      color: rgb(62, 69, 165);
+    }
   }
 }
