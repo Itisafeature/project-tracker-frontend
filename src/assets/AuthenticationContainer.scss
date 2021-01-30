@@ -12,12 +12,17 @@
   }
 
   .information-container {
-    background: linear-gradient(135deg, white, rgb(32, 29, 29) 50%);
+    background: linear-gradient(215deg, white, rgb(32, 29, 29) 75%);
     color: #f3ca20;
   }
 
   .login-form-container {
+    background: linear-gradient(135deg, white, rgb(32, 29, 29) 75%);
     flex-direction: column;
+
+    h1 {
+      color: #f3ca20;
+    }
   }
 
   .login-form {
