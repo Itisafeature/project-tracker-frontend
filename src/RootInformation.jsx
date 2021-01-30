@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RootInformation = () => {
+const RootInformation = ({info}) => {
   return (
     <div className="information-container">
       <div className="information">

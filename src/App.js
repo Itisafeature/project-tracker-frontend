@@ -13,6 +13,9 @@ function App() {
         <Route path="/login">
           <AuthenticationContainer type="login" />
         </Route>
+        <Route path="/signup">
+          <AuthenticationContainer type="signup" />
+        </Route>
         <Route path="/">
           <Welcome />
         </Route>
