@@ -1,24 +1,23 @@
 import React from 'react';
 import Welcome from './Welcome';
 import Navbar from './Navbar';
-import AuthenticationContainer from './AuthenticationContainer';
 import './assets/App.scss';
 import { Switch, Route } from 'react-router-dom';
+import AuthenticationRoutes from './routes/AuthenticationRoutes';
+import BoardRoutes from './routes/BoardRoutes';
 
 function App() {
   return (
     <div className="app-container">
       <Navbar />
       <Switch>
-        <Route path="/login">
-          <AuthenticationContainer type="login" />
-        </Route>
-        <Route path="/signup">
-          <AuthenticationContainer type="signup" />
-        </Route>
-        <Route path="/">
-          <Welcome />
-        </Route>
+        <>
+          <AuthenticationRoutes />
+          <BoardRoutes />
+          <Route path="/">
+            <Welcome />
+          </Route>
+        </>
       </Switch>
     </div>
   );
