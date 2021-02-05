@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './assets/BoardsIndex.scss'
+import '../assets/BoardsIndex.scss'
 
 const BoardsIndex = () => {
   const [boards, setBoards] = useState([{"name": "board1"}, {"name": "board2"}])

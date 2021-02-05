@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import BoardsIndex from '../BoardsIndex';
+import BoardsIndex from '../boards/BoardsIndex';
 
 const BoardRoutes = () => (
   <>
