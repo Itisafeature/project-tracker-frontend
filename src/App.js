@@ -14,7 +14,7 @@ function App() {
         <>
           <AuthenticationRoutes />
           <BoardRoutes />
-          <Route path="/">
+          <Route exact path="/">
             <Welcome />
           </Route>
         </>

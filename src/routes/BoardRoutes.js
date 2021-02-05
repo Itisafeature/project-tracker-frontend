@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import BoardsIndex from './BoardsIndex';
+import BoardsIndex from '../BoardsIndex';
 
 const BoardRoutes = () => (
   <>
-    <Route path="/boards">
+    <Route exact path="/boards">
       <BoardsIndex />
     </Route>
   </>

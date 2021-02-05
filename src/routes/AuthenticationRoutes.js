@@ -4,10 +4,10 @@ import AuthenticationContainer from '../AuthenticationContainer';
 
 const AuthenticationRoutes = () => (
   <>
-    <Route path="/login">
+    <Route exact path="/login">
       <AuthenticationContainer type="login" />
     </Route>
-    <Route path="/signup">
+    <Route exact path="/signup">
       <AuthenticationContainer type="signup" />
     </Route>
   </>
