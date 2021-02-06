@@ -10,7 +10,8 @@ const AuthenticationContainer = ({type}) => {
 
  const handleSubmit = async (e) => {
    e.preventDefault();
-   const res = await axios.post('/users/new', {
+   debugger;
+   const res = await axios.post(`/${type}`, {
      email,
      password
    })
