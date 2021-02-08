@@ -3,6 +3,7 @@ import axios from 'axios';
 import { titleize } from './helpers/helpers.js';
 import RootInformation from './RootInformation';
 import './assets/AuthenticationContainer.scss'
+import { loginUser } from './utils/authentication';
 
 const AuthenticationContainer = ({type}) => {
   const [username, setUsername] = useState('');
@@ -11,16 +12,19 @@ const AuthenticationContainer = ({type}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    debugger;
+    // debugger
     try {
       const res = await axios.post(`/${type}`, {
         email,
         username,
         password
-      })
+      });
+      loginUser(res);
     } catch(err) {
-
+      debugger;
     }
+
+
   }
 
   return (
