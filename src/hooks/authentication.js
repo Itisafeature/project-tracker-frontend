@@ -9,17 +9,32 @@ const useAuthentication = history => {
 
   // }, []);
 
-  const signupUser = async form => {
+  const processForm = form => {
     const formData = new FormData(form);
     const formDataObj = {};
     for (const key of formData.keys()) {
       formDataObj[key] = formData.get(key);
     }
-    const data = await axios.post('/signup', formDataObj);
-    debugger;
+    return formDataObj;
   };
 
-  const loginUser = res => {
+  const signupUser = async form => {
+    const formDataObj = processForm(form);
+    try {
+      const data = await axios.post('/signup', formDataObj);
+      setUserStorage(data.data);
+    } catch (err) {}
+  };
+
+  const loginUser = async form => {
+    const formDataObj = processForm(form);
+    try {
+      const data = await axios.post('/login', formDataObj);
+      setUserStorage(data.data);
+    } catch (err) {}
+  };
+
+  const setUserStorage = data => {
     debugger;
     localStorage.setItem(
       'currentUserPT',
@@ -33,6 +48,7 @@ const useAuthentication = history => {
   const logoutUser = async () => {
     try {
       await axios.post('/logout');
+      localStorage.removeItem('currentUserPT');
     } catch (err) {
       console.log(err);
     }
