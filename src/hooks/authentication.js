@@ -9,7 +9,15 @@ const useAuthentication = history => {
 
   // }, []);
 
-  const signupUser = () => {};
+  const signupUser = async form => {
+    const formData = new FormData(form);
+    const formDataObj = {};
+    for (const key of formData.keys()) {
+      formDataObj[key] = formData.get(key);
+    }
+    const data = await axios.post('/signup', formDataObj);
+    debugger;
+  };
 
   const loginUser = res => {
     debugger;
