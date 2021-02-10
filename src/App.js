@@ -9,11 +9,11 @@ import BoardRoutes from './routes/BoardRoutes';
 
 function App() {
   const history = useHistory();
-  const { loginUser, signupUser } = useAuthentication(history);
+  const { loginUser, signupUser, logoutUser } = useAuthentication(history);
 
   return (
     <div className="app-container">
-      <Navbar />
+      <Navbar logoutUser={logoutUser} />
       <Switch>
         <>
           <AuthenticationRoutes loginUser={loginUser} signupUser={signupUser} />

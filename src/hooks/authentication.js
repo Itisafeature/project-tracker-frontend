@@ -30,11 +30,18 @@ const useAuthentication = history => {
     return null;
   };
 
-  const logoutUser = () => {};
+  const logoutUser = async () => {
+    try {
+      await axios.post('/logout');
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return {
     signupUser,
     loginUser,
+    logoutUser,
   };
 };
 
