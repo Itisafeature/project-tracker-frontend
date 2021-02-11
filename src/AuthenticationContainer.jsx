@@ -5,7 +5,7 @@ import RootInformation from './RootInformation';
 import './assets/AuthenticationContainer.scss'
 
 
-const AuthenticationContainer = ({type, loginUser, signupUser}) => {
+const AuthenticationContainer = ({type, createOrAuthenticateUser}) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +14,7 @@ const AuthenticationContainer = ({type, loginUser, signupUser}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    e.target.className.includes('login') ? loginUser(form.current) : signupUser(form.current)
+    createOrAuthenticateUser(form.current, type)
   }
 
   return (

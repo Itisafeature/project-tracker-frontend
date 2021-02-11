@@ -18,19 +18,12 @@ const useAuthentication = history => {
     return formDataObj;
   };
 
-  const signupUser = async form => {
+  const createOrAuthenticateUser = async (form, type) => {
     const formDataObj = processForm(form);
     try {
-      const data = await axios.post('/signup', formDataObj);
+      const data = await axios.post(`/${type}`, formDataObj);
       setUserStorage(data.data);
-    } catch (err) {}
-  };
-
-  const loginUser = async form => {
-    const formDataObj = processForm(form);
-    try {
-      const data = await axios.post('/login', formDataObj);
-      setUserStorage(data.data);
+      history.push('/boards');
     } catch (err) {}
   };
 
@@ -39,7 +32,9 @@ const useAuthentication = history => {
     localStorage.setItem(
       'currentUserPT',
       JSON.stringify({
-        hello: 'hello',
+        expiration: data.expiration,
+        id: data.data.id,
+        username: data.data.username,
       })
     );
     return null;
@@ -55,8 +50,7 @@ const useAuthentication = history => {
   };
 
   return {
-    signupUser,
-    loginUser,
+    createOrAuthenticateUser,
     logoutUser,
   };
 };

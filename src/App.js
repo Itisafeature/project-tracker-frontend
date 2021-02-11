@@ -9,14 +9,16 @@ import BoardRoutes from './routes/BoardRoutes';
 
 function App() {
   const history = useHistory();
-  const { loginUser, signupUser, logoutUser } = useAuthentication(history);
+  const { createOrAuthenticateUser, logoutUser } = useAuthentication(history);
 
   return (
     <div className="app-container">
       <Navbar logoutUser={logoutUser} />
       <Switch>
         <>
-          <AuthenticationRoutes loginUser={loginUser} signupUser={signupUser} />
+          <AuthenticationRoutes
+            createOrAuthenticateUser={createOrAuthenticateUser}
+          />
           <BoardRoutes />
           <Route exact path="/">
             <Welcome />

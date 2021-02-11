@@ -2,13 +2,19 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import AuthenticationContainer from '../AuthenticationContainer';
 
-const AuthenticationRoutes = ({ loginUser, signupUser }) => (
+const AuthenticationRoutes = ({ createOrAuthenticateUser }) => (
   <>
     <Route exact path="/login">
-      <AuthenticationContainer type="login" loginUser={loginUser} />
+      <AuthenticationContainer
+        type="login"
+        createOrAuthenticateUser={createOrAuthenticateUser}
+      />
     </Route>
     <Route exact path="/signup">
-      <AuthenticationContainer type="signup" signupUser={signupUser} />
+      <AuthenticationContainer
+        type="signup"
+        createOrAuthenticateUser={createOrAuthenticateUser}
+      />
     </Route>
   </>
 );
