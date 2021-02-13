@@ -13,7 +13,7 @@ const Navbar = ({logoutUser}) => {
         <Link className="navlink" to="/boards">My Boards</Link>
         <Link className="navlink" to="/login">Login</Link>
         <Link className="navlink" to="/signup">Signup</Link>
-        <Link className="navlink" to="/" onClick={logoutUser}>Logout</Link>
+        <Link className="navlink" to="/login" onClick={logoutUser}>Logout</Link>
       </nav>
     </div>
   )

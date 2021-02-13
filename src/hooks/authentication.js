@@ -4,10 +4,17 @@ import axios from 'axios';
 const useAuthentication = history => {
   const [user, setUser] = useState({});
 
-  // useEffect(() => {
-  //   const userData = localStorage.getItem('currentUserPT');
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get('/auth');
+      } catch (err) {
+        console.log(err.response);
+      }
+    };
 
-  // }, []);
+    checkAuth();
+  }, []);
 
   const processForm = form => {
     const formData = new FormData(form);
@@ -28,11 +35,9 @@ const useAuthentication = history => {
   };
 
   const setUserStorage = data => {
-    debugger;
     localStorage.setItem(
       'currentUserPT',
       JSON.stringify({
-        expiration: data.expiration,
         id: data.data.id,
         username: data.data.username,
       })
