@@ -9,18 +9,14 @@ const BoardsNew = () => {
   const [items, setItems] = useState([]);
   const { register, control, handleSubmit, errors } = useForm({
     defaultValues: {
-      items: [{name: ""}]
+      items: [{name: "", notes: ""}]
     }
   });
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
     control,
     name: "items"
   })
-
-  // const addItem = () => {
-    // setItemCount(itemCount + 1);
-    // setItems([...items, {id: itemCount}])
-  // }
+  const statuses = ['Icebox', 'Not Started', 'In-Progress', 'Completed']
 
   const onSubmit = async (data) => {
     debugger;
@@ -34,20 +30,38 @@ const BoardsNew = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input name="board[name]" type="text" ref={register({required: "Name of board is required"})} />
-      {/* {errors.board && <span>This field is required</span>} */}
       <ErrorMessage errors={errors} name="board[name]" render={({message}) => <p>{message}</p> }/>
       <ul>
         {fields.map((item, index) => (
-            <input
-              name={`items[${index}].name`}
-              ref={register({ required: true})}
-              defaultValue={item.name}
-              key={item.id}
+          <div key={item.id} className="item">
+            <h3>Item</h3>
+            <label>
+            item name  
+              <input
+                type="text"
+                name={`items[${index}].name`}
+                ref={register({ required: "Item name is required"})}
+                defaultValue={item.name}
+              />
+            </label>
+            <ErrorMessage errors={errors} name={`items[${index}].name`} render={({message}) => <p>{message}</p> }/>
+            <label>
+              <select defaultValue="" name={`items[${index}].status`} ref={register()}>
+              <option disabled value="">--- Select a Status ---</option>
+                {statuses.map((status) => <option key={status} value={status}>{status}</option>)}
+              </select>
+            </label>
+            <textarea
+              type="textarea"
+              name={`items[${index}].notes`}
+              ref={register()}
+              defaultValue={item.notes}
             />
+          </div>
         ))
         }
       </ul>
-      <button type="button" onClick={() => append({name: ""})}>Add Item</button>
+      <button type="button" onClick={() => append({name: "", notes: ""})}>Add Item</button>
       <button type="submit">Create Board</button>
     </form>
   )
