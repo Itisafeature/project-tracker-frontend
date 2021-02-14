@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message'
 import axios from 'axios';
 import ItemFields from '../items/ItemFields';
 
@@ -8,12 +9,12 @@ const BoardsNew = () => {
   const [items, setItems] = useState([]);
   const { register, control, handleSubmit, errors } = useForm({
     defaultValues: {
-      item: [{name: ""}]
+      items: [{name: ""}]
     }
   });
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
     control,
-    name: "item"
+    name: "items"
   })
 
   // const addItem = () => {
@@ -32,12 +33,13 @@ const BoardsNew = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input name="board[name]" type="text" ref={register({required: true})} />
-      {errors.name && <span>This field is required</span>}
+      <input name="board[name]" type="text" ref={register({required: "Name of board is required"})} />
+      {/* {errors.board && <span>This field is required</span>} */}
+      <ErrorMessage errors={errors} name="board[name]" render={({message}) => <p>{message}</p> }/>
       <ul>
         {fields.map((item, index) => (
             <input
-              name={`item${[index]}.name`}
+              name={`items[${index}].name`}
               ref={register({ required: true})}
               defaultValue={item.name}
               key={item.id}
