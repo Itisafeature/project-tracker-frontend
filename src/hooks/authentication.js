@@ -31,7 +31,9 @@ const useAuthentication = history => {
       const data = await axios.post(`/${type}`, formDataObj);
       setUserStorage(data.data);
       history.push('/boards');
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const setUserStorage = data => {

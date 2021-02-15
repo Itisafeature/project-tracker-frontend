@@ -17,9 +17,9 @@ const BoardsNew = () => {
   const statuses = ['Icebox', 'Not Started', 'In-Progress', 'Completed']
 
   const onSubmit = async (data) => {
-    debugger;
     try {
       const res = await axios.post('/boards/new', data)
+      console.log(res)
     } catch (err) {
       console.log(err)
     }
