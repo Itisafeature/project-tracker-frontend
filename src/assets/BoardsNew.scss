@@ -4,6 +4,12 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  background: linear-gradient(#f3ca20, #ef86ef);
+
+  .board-new-error {
+    color: #ff0000;
+    margin-right: 10px;
+  }
 
   form {
     width: 100%;
@@ -14,18 +20,29 @@
     .item {
       display: flex;
       flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
 
       h3 {
         flex: 0 1 100%;
         text-align: center;
       }
 
-      label:first-of-type {
-        text-align: center;
+      label,
+      input,
+      select,
+      textarea {
+        margin-right: 5px;
       }
 
-      label {
-        display: flex;
+      textarea {
+        resize: none;
+      }
+
+      .remove-item {
+        align-self: center;
+        text-align: center;
       }
     }
 
