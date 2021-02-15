@@ -1,3 +1,5 @@
+$error-red: #ff0000;
+
 .board-form-container {
   padding: 50px;
   height: 100%;
@@ -5,9 +7,21 @@
   display: flex;
   justify-content: center;
   background: linear-gradient(#f3ca20, #ef86ef);
+  font-size: 1.05em;
+
+  button {
+    border-radius: 25px;
+    border: none;
+    background: #b7f5ba;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+    font-size: 1.02em;
+  }
 
   .board-new-error {
-    color: #ff0000;
+    color: $error-red;
     margin-right: 10px;
   }
 
@@ -24,7 +38,7 @@
       justify-content: center;
       width: 100%;
 
-      h3 {
+      h4 {
         flex: 0 1 100%;
         text-align: center;
       }
@@ -46,7 +60,9 @@
       }
     }
 
+    .create-board,
     .add-item {
+      width: 15%;
       margin-top: 10px;
     }
   }

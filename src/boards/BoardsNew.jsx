@@ -28,7 +28,7 @@ const BoardsNew = () => {
   return (
     <div className="board-form-container">
       <form className="new-board-form" onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="new-board-name">Name of Board</label>
+        <label htmlFor="new-board-name"><h1>Name of Board</h1></label>
         <input name="board[name]" id="new-board-name" type="text" ref={register({required: "Name of board is required"})} />
         <ErrorMessage 
           errors={errors} 
@@ -37,7 +37,7 @@ const BoardsNew = () => {
         />
         {fields.map((item, index) => (
           <div key={item.id} className="item">
-            <h3>Item</h3>
+            <h4>Item</h4>
             <label htmlFor={`new-board-item-name${index}`}>Item Name</label>
             <input
               type="text"
@@ -84,8 +84,8 @@ const BoardsNew = () => {
         ))
         }
         {fields.length < 4 && <button className="add-item" type="button" onClick={() => append({name: "", notes: ""})}>Add Item</button>}
-        {fields.length === 4 && <p>You can add additional items later!</p>}
-        <button type="submit">Create Board</button>
+        {fields.length === 4 && <p className="board-new-error">You can add additional items later!</p>}
+        <button className="create-board" type="submit">Create Board</button>
       </form>
     </div>
   )
