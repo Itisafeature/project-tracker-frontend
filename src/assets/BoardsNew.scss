@@ -1,0 +1,36 @@
+.board-form-container {
+  padding: 50px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .item {
+      display: flex;
+      flex-flow: row wrap;
+
+      h3 {
+        flex: 0 1 100%;
+        text-align: center;
+      }
+
+      label:first-of-type {
+        text-align: center;
+      }
+
+      label {
+        display: flex;
+      }
+    }
+
+    .add-item {
+      margin-top: 10px;
+    }
+  }
+}
