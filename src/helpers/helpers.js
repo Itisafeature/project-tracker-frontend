@@ -4,6 +4,8 @@ export const titleize = str =>
     .map(word => word[0].toUpperCase() + word.slice(1))
     .join(' ');
 
+export const slug = str => str.replace(/\s+/g, '-');
+
 export const processForm = form => {
   const formData = new FormData(form);
   const formDataObj = {};

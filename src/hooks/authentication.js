@@ -4,17 +4,17 @@ import axios from 'axios';
 const useAuthentication = history => {
   const [user, setUser] = useState({});
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await axios.get('/auth');
-      } catch (err) {
-        console.log(err.response);
-      }
-    };
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       const res = await axios.get('/auth');
+  //     } catch (err) {
+  //       console.log(err.response);
+  //     }
+  //   };
 
-    checkAuth();
-  }, []);
+  //   checkAuth();
+  // }, []);
 
   const processForm = form => {
     const formData = new FormData(form);
