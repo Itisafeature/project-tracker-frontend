@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message'
 import axios from 'axios';
 import '../assets/BoardsNew.scss'
 
 const BoardsNew = () => {
+  const history = useHistory();
   const { register, control, handleSubmit, errors } = useForm({
     defaultValues: {
       items: [{name: "", notes: ""}]
@@ -19,7 +21,7 @@ const BoardsNew = () => {
   const onSubmit = async (data) => {
     try {
       const res = await axios.post('/boards/new', data)
-      console.log(res)
+      history.push('/boards')
     } catch (err) {
       console.log(err)
     }
