@@ -9,6 +9,8 @@ const BoardsShow = () => {
   const [board, setBoard] = useState(null);
   const [error, setError] = useState(false);
 
+
+
   useEffect(() => {
     const boardState = history.location.state
     const getBoard = async () => {
@@ -25,10 +27,17 @@ const BoardsShow = () => {
     } else {
       setBoard(boardState)
     }
-  }, [])
+  
+  }, [boardName, history.location.state])
 
   if (board) {
-    return 
+    return (
+      <div>
+        {board.name}
+      </div>
+    )
+  } else {
+    return null
   }
 }
 
