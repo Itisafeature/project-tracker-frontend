@@ -4,8 +4,10 @@ import Navbar from './Navbar';
 import './assets/App.scss';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import useAuthentication from './hooks/authentication';
-import AuthenticationRoutes from './routes/AuthenticationRoutes';
-import BoardRoutes from './routes/BoardRoutes';
+import AuthenticationContainer from './AuthenticationContainer';
+import BoardsIndex from './boards/BoardsIndex';
+import BoardsNew from './boards/BoardsNew';
+import BoardsShow from './boards/BoardsShow';
 
 function App() {
   const history = useHistory();
@@ -15,15 +17,33 @@ function App() {
     <div className="app-container">
       <Navbar logoutUser={logoutUser} />
       <Switch>
-        <>
-          <AuthenticationRoutes
+        {/* <AuthenticationRoutes
+          createOrAuthenticateUser={createOrAuthenticateUser}
+        /> */}
+        <Route exact path="/login">
+          <AuthenticationContainer
+            type="login"
             createOrAuthenticateUser={createOrAuthenticateUser}
           />
-          <BoardRoutes />
-          <Route exact path="/">
-            <Welcome />
-          </Route>
-        </>
+        </Route>
+        <Route exact path="/signup">
+          <AuthenticationContainer
+            type="signup"
+            createOrAuthenticateUser={createOrAuthenticateUser}
+          />
+        </Route>
+        <Route exact path="/boards">
+          <BoardsIndex />
+        </Route>
+        <Route exact path="/boards/new">
+          <BoardsNew />
+        </Route>
+        <Route exact path="/boards/:boardName">
+          <BoardsShow />
+        </Route>
+        <Route exact path="/">
+          <Welcome />
+        </Route>
       </Switch>
     </div>
   );

@@ -21,7 +21,7 @@ const BoardsNew = () => {
   const onSubmit = async (data) => {
     try {
       const res = await axios.post('/boards/new', data)
-      history.push('/boards')
+      history.push({pathname: `/boards/${res.data.board.name}`, state: res.data.board})
     } catch (err) {
       console.log(err)
     }
