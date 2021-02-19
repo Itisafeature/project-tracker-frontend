@@ -1,4 +1,5 @@
 import React from 'react';
+import '../assets/ItemCard.scss';
 
 const ItemCard = ({ item }) => {
   return (

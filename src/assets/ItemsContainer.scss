@@ -6,6 +6,11 @@
   .not_started-item-container,
   .in_progress-item-container,
   .completed-item-container {
-    flex-basis: 25%;
+    width: 25%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
