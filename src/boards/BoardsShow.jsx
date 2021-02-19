@@ -35,7 +35,10 @@ const BoardsShow = () => {
   if (board) {
     return (
       <div className="board-container">
-        <h1 className="board_name">{board.name}</h1>
+        <div className="board-header">
+          <h1 className="board_name">{board.name}</h1>
+          <button className="add-item">Add Item</button>
+        </div>
         <ItemsContainer items={board.items} />
       </div>
     )

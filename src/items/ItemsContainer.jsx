@@ -27,11 +27,11 @@ const ItemsContainer = ({items}) => {
       </div>
       <div className="in_progress-item-container">
         <h2>In-Progress</h2> 
-        {notStarted.map(item => <ItemCard key={item.name} item={item} />)}
+        {inProgress.map(item => <ItemCard key={item.name} item={item} />)}
       </div>  
       <div className="completed-item-container">
         <h2>Completed</h2>
-        {notStarted.map(item => <ItemCard key={item.name} item={item} />)}
+        {completed.map(item => <ItemCard key={item.name} item={item} />)}
       </div>  
     </div>
   )

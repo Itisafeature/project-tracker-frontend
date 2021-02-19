@@ -1,5 +1,18 @@
 .board-container {
-  .board_name {
-    text-align: center;
+  .board-header {
+    display: flex;
+    justify-content: space-between;
+
+    .board_name::before {
+      content: 'D';
+      visibility: hidden;
+    }
+    .board_name {
+      text-align: center;
+    }
+
+    .add-item {
+      align-self: center;
+    }
   }
 }
