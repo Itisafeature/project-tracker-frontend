@@ -1,0 +1,11 @@
+.items-container {
+  display: flex;
+  justify-content: center;
+
+  .icebox-item-container,
+  .not_started-item-container,
+  .in_progress-item-container,
+  .completed-item-container {
+    flex-basis: 25%;
+  }
+}

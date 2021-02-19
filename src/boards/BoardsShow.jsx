@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
+import ItemsContainer from '../items/ItemsContainer';
+import '../assets/BoardsShow.scss';
 
 const BoardsShow = () => {
   const history = useHistory();
@@ -32,8 +34,9 @@ const BoardsShow = () => {
 
   if (board) {
     return (
-      <div>
-        {board.name}
+      <div className="board-container">
+        <h1 className="board_name">{board.name}</h1>
+        <ItemsContainer items={board.items} />
       </div>
     )
   } else {
