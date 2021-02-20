@@ -36,6 +36,7 @@ const BoardsShow = () => {
     return (
       <div className="board-container">
         <div className="board-header">
+          <button className="add-item pseudo">Add Item</button>
           <h1 className="board_name">{board.name}</h1>
           <button className="add-item">Add Item</button>
         </div>
