@@ -10,6 +10,7 @@ const BoardsShow = () => {
   const { boardName } = useParams();
   const [loaded, setLoaded] = useState(false);
   const [board, setBoard] = useState(null);
+  const [items, setItems] = useState([]);
   const [error, setError] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
@@ -19,15 +20,28 @@ const BoardsShow = () => {
       try {
         const data = await axios.get(`/boards/${boardName}`)
         setBoard(data.data.board)
+        setItems(data.data.board.items);
       } catch(err) {
         console.log(err.response)
       }
     }
     boardState === undefined ? getBoard() : setBoard(boardState)
+    if (board) setItems(board.items);
   }, [boardName, history.location.state])
 
   const toggleForm = () => {
     setShowForm(!showForm);
+  }
+
+  const handleNewItem = async (data) => {
+    data.boardName = board.name
+    try {
+      const res = await axios.post('/items', data);
+      debugger;
+      setItems(items.concat[res.data.item])
+    } catch(err) {
+      console.log(err.response)
+    }
   }
 
   if (board) {
@@ -37,8 +51,8 @@ const BoardsShow = () => {
           <h1 className="board_name">{board.name}</h1>
           <button className="add-item" onClick={toggleForm}>Add Item</button>
         </div>
-        {showForm ? <ItemsNew /> : null }
-        <ItemsContainer items={board.items} /> 
+        {showForm ? <ItemsNew handleNewItem={handleNewItem} /> : null }
+        <ItemsContainer items={items} /> 
       </div>
     )
   } else {

@@ -4,12 +4,12 @@ import { ErrorMessage } from '@hookform/error-message'
 import '../assets/ItemsNew.scss';
 
 
-const ItemsNew = () => {
+const ItemsNew = ({handleNewItem}) => {
   const { register, handleSubmit, errors } = useForm();
   const statuses = ['Icebox', 'Not Started', 'In-Progress', 'Completed']
 
-  const onSubmit = () => {
-    debugger;
+  const onSubmit = (data) => {
+    handleNewItem(data)
   }
   return (
     <div className="item-new_container">
@@ -30,6 +30,7 @@ const ItemsNew = () => {
         <select 
           className="item-status"
           name="status"
+          defaultValue=""
           ref={register({ required: "Status is required"})}
         >
         <option disabled value="">--- Select a Status ---</option>
