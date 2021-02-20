@@ -1,0 +1,47 @@
+.item-new_container {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  box-shadow: 0 0 20px black;
+  height: 40%;
+  width: 30%;
+
+  h1 {
+    text-align: center;
+  }
+
+  .item-new_form {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    input,
+    select,
+    button {
+      width: 100%;
+    }
+
+    select {
+      text-align: center;
+      text-align-last: center;
+      padding: 5px;
+    }
+
+    .add-item_button {
+      margin-top: 5%;
+      border-radius: 25px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      -ms-border-radius: 25px;
+      -o-border-radius: 25px;
+      outline: none;
+    }
+  }
+}
