@@ -18,7 +18,8 @@ const BoardsNew = () => {
   })
   const statuses = ['Icebox', 'Not Started', 'In-Progress', 'Completed']
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
     try {
       const res = await axios.post('/boards/new', data)
       history.push({pathname: `/boards/${res.data.board.name}`, state: res.data.board})

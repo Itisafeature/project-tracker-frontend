@@ -4,7 +4,7 @@ import { ErrorMessage } from '@hookform/error-message'
 import '../assets/ItemsNew.scss';
 
 
-const ItemsNew = ({handleNewItem}) => {
+const ItemsNew = ({handleNewItem, itemNewRef}) => {
   const { register, handleSubmit, errors } = useForm();
   const statuses = ['Icebox', 'Not Started', 'In-Progress', 'Completed']
 
@@ -12,7 +12,7 @@ const ItemsNew = ({handleNewItem}) => {
     handleNewItem(data, e)
   }
   return (
-    <div className="item-new_container">
+    <div ref={itemNewRef} className="item-new_container">
       <h1>Add Item</h1>
       <form className="item-new_form" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">Name</label>
