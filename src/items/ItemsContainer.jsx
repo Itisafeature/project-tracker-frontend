@@ -3,7 +3,6 @@ import ItemCard from './ItemCard';
 import '../assets/ItemsContainer.scss';
 
 const ItemsContainer = ({items}) => {
-  debugger;
   const [icebox, notStarted, inProgress, completed] =                            
     items.reduce((result, item) => {
       result[
