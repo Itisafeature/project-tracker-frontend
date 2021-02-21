@@ -37,11 +37,12 @@ const BoardsShow = () => {
     setShowForm(!showForm);
   }
 
-  const handleNewItem = async (data) => {
+  const handleNewItem = async (data, e) => {
+    e.preventDefault();
     data.boardName = board.name
     try {
       const res = await axios.post('/items', data);
-      setItems(items.concat[res.data.item])
+      setItems(items.concat([res.data.item]))
       toggleForm();
     } catch(err) {
       console.log(err.response)

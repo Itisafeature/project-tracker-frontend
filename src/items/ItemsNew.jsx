@@ -8,8 +8,8 @@ const ItemsNew = ({handleNewItem}) => {
   const { register, handleSubmit, errors } = useForm();
   const statuses = ['Icebox', 'Not Started', 'In-Progress', 'Completed']
 
-  const onSubmit = (data) => {
-    handleNewItem(data)
+  const onSubmit = (data, e) => {
+    handleNewItem(data, e)
   }
   return (
     <div className="item-new_container">
