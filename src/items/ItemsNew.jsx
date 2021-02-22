@@ -24,7 +24,7 @@ const ItemsNew = React.forwardRef(({handleNewItem}, ref) => {
         <ErrorMessage 
           errors={errors} 
           name="name" 
-          render={({message}) => <p className="item-new-error">{message}</p> }
+          render={({message}) => <p className="item-new_error">{message}</p> }
         />
         <label htmlFor="status">Status</label>
         <select 
@@ -38,8 +38,8 @@ const ItemsNew = React.forwardRef(({handleNewItem}, ref) => {
         </select>
         <ErrorMessage 
           errors={errors} 
-          name="statis"
-          render={({message}) => <p className="item-new-error">{message}</p> }
+          name="status"
+          render={({message}) => <p className="item-new_error">{message}</p> }
         />
         <label htmlFor="item-notes">Notes</label>
         <textarea
