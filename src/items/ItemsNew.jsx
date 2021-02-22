@@ -3,16 +3,16 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message'
 import '../assets/ItemsNew.scss';
 
-
-const ItemsNew = ({handleNewItem, itemNewRef}) => {
+const ItemsNew = React.forwardRef(({handleNewItem}, ref) => {
   const { register, handleSubmit, errors } = useForm();
   const statuses = ['Icebox', 'Not Started', 'In-Progress', 'Completed']
 
   const onSubmit = (data, e) => {
     handleNewItem(data, e)
   }
+
   return (
-    <div ref={itemNewRef} className="item-new_container">
+    <div className="item-new_container">
       <h1>Add Item</h1>
       <form className="item-new_form" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">Name</label>
@@ -54,6 +54,6 @@ const ItemsNew = ({handleNewItem, itemNewRef}) => {
       </form>
     </div>
   )
-}
+});
 
 export default ItemsNew;

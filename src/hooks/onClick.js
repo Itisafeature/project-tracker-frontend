@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
 const useOnClick = (ref, handler) => {
+  debugger;
   useEffect(() => {
-    debugger;
     const listener = event => {
       // Do nothing if clicking ref's element or descendent elements
       if (!ref.current || ref.current.contains(event.target)) {
@@ -22,7 +22,7 @@ const useOnClick = (ref, handler) => {
     return () => {
       document.removeEventListener('mousedown', listener);
     };
-  }, []);
+  }, [ref, handler]);
 };
 
 export default useOnClick;

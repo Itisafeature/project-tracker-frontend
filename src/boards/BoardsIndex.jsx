@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { slug } from '../helpers/helpers';
 import '../assets/BoardsIndex.scss'
 
 const BoardsIndex = () => {

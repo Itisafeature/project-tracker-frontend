@@ -10,7 +10,6 @@ const BoardsShow = () => {
   const history = useHistory();
   const { boardName } = useParams();
   const itemNewRef = useRef();
-  useOnClick(itemNewRef, () => showForm)
   const [loaded, setLoaded] = useState(false);
   const [board, setBoard] = useState('');
   const [items, setItems] = useState([]);
@@ -36,6 +35,17 @@ const BoardsShow = () => {
     boardState === undefined ? getBoard() : boardState.items ? setStates(boardState, boardState.items) : setStates(boardState, null)
   }, [boardName, history.location.state])
 
+  useEffect(() => {
+    const handleModalOffClick = e => {
+      if (e.target && itemNewRef.current && e.target !== itemNewRef.current && !itemNewRef.current.contains(e.target)) {
+        toggleForm();
+      }
+    };
+    if (showForm) window.addEventListener("click", handleModalOffClick);
+    return () => window.removeEventListener("click", handleModalOffClick)
+
+  }, [showForm])
+
   const toggleForm = () => {
     setShowForm(!showForm)
   }
@@ -59,7 +69,9 @@ const BoardsShow = () => {
           <h1 className="board_name">{board.name}</h1>
           <button className="add-item" onClick={toggleForm}>Add Item</button>
         </div>
-        {showForm ? <ItemsNew innerRef={itemNewRef} handleNewItem={handleNewItem} /> : null }
+        <div ref={itemNewRef}>
+          {showForm ? <ItemsNew handleNewItem={handleNewItem} /> : null }
+        </div>
         {items.length > 0 ? <ItemsContainer items={items} /> : null }
       </div>
     )
