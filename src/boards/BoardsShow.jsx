@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
+import { DragDropContext } from 'react-beautiful-dnd';
 import useOnClick from '../hooks/onClick';
 import ItemsContainer from '../items/ItemsContainer';
 import ItemsNew from '../items/ItemsNew';
@@ -72,7 +73,9 @@ const BoardsShow = () => {
         <div ref={itemNewRef}>
           {showForm ? <ItemsNew handleNewItem={handleNewItem} /> : null }
         </div>
-        {items.length > 0 ? <ItemsContainer items={items} /> : null }
+        <DragDropContext>
+          {items.length > 0 ? <ItemsContainer items={items} /> : null }
+        </DragDropContext>
       </div>
     )
   } else {

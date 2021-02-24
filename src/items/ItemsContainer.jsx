@@ -1,6 +1,8 @@
 import React from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 import ItemCard from './ItemCard';
 import '../assets/ItemsContainer.scss';
+import ItemList from './ItemList';
 
 const ItemsContainer = ({items}) => {
   const [icebox, notStarted, inProgress, completed] =                            
@@ -17,22 +19,10 @@ const ItemsContainer = ({items}) => {
     
   return (
     <div className="items-container">
-      <div className="icebox-item-container">
-        <h2>Icebox</h2>
-        {icebox.map(item => <ItemCard key={item.name} item={item} />)}
-      </div>
-      <div className="not_started-item-container">
-        <h2>Not Started</h2>
-        {notStarted.map(item => <ItemCard key={item.name} item={item} />)}
-      </div>
-      <div className="in_progress-item-container">
-        <h2>In-Progress</h2> 
-        {inProgress.map(item => <ItemCard key={item.name} item={item} />)}
-      </div>  
-      <div className="completed-item-container">
-        <h2>Completed</h2>
-        {completed.map(item => <ItemCard key={item.name} item={item} />)}
-      </div>  
+      <ItemList items={icebox} type="icebox" />
+      <ItemList items={notStarted} type="not_started" />
+      <ItemList items={inProgress} type="in_progress" />
+      <ItemList items={completed} type="completed" />
     </div>
   )
 }
