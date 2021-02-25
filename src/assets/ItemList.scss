@@ -1,0 +1,19 @@
+.items-list-container {
+  width: 25%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icebox-items,
+.not_started-items,
+.in_progress-items,
+.completed-items {
+  width: 80%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

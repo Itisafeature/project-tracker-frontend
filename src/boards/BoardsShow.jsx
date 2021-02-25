@@ -16,18 +16,27 @@ const BoardsShow = () => {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [icebox, setIcebox] = useState([]);
+  const [notStarted, setNotStarted] = useState([]);
+  const [inProgress, setInProgress] = useState([]);
+  const [completed, setCompleted] = useState([]);        
 
   useEffect(() => {
     const boardState = history.location.state
     const setStates = (board, items) => {
       setBoard(board);
-      if (items) setItems(items);
+      if (items) {
+        setItems(items);
+        setIcebox(icebox.concat(items.filter(item => item.status === "Icebox")))
+        setNotStarted(items.filter(item => item.status === "Not Started"))
+        setInProgress(items.filter(item => item.status === "In-Progress"))
+        setCompleted(items.filter(item => item.status === "Completed"))
+      }
     }
     const getBoard = async () => {
       try {
         const data = await axios.get(`/boards/${boardName}`)
         setStates(data.data.board, data.data.items)
-
       } catch(err) {
         console.log(err.response)
       }
@@ -63,6 +72,15 @@ const BoardsShow = () => {
     }
   }
 
+  const onDragEnd = result => {
+    const { source, destination } = result;
+    if (!destination) return;
+
+    if (source.droppableId === destination.droppableId) {
+      debugger;
+    }
+  }
+
   if (board) {
     return (
       <div className={`board-container ${showForm ? 'modal-active' : ''}`}>
@@ -73,8 +91,8 @@ const BoardsShow = () => {
         <div ref={itemNewRef}>
           {showForm ? <ItemsNew handleNewItem={handleNewItem} /> : null }
         </div>
-        <DragDropContext>
-          {items.length > 0 ? <ItemsContainer items={items} /> : null }
+        <DragDropContext onDragEnd={onDragEnd}>
+          {items.length > 0 ? <ItemsContainer icebox={icebox} notStarted={notStarted} inProgress={inProgress} completed={completed} /> : null }
         </DragDropContext>
       </div>
     )
