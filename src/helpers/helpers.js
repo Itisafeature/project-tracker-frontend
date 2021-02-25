@@ -1,10 +1,10 @@
-export const titleize = str =>
-  str
+export const titleize = str => {
+  const newStr = str.replace('_', ' ');
+  return newStr
     .split(' ')
     .map(word => word[0].toUpperCase() + word.slice(1))
     .join(' ');
-
-export const slug = str => str.replace(/\s+/g, '-');
+};
 
 export const processForm = form => {
   const formData = new FormData(form);
