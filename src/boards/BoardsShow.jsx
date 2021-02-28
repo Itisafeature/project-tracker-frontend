@@ -74,12 +74,22 @@ const BoardsShow = () => {
     }
   }
 
-  const onDragEnd = result => {
-    const { source, destination } = result;
+  const onDragEnd = async ({source, destination}) => {
     if (!destination) return;
 
+    try {
+      await axios.patch('/items/updatePositions', {
+        sourceIndex: source.index,
+        destinationIndex: destination.index,
+        destinationStatus: destination.droppableId,
+        boardName: board.name
+      }) // not restful
+    } catch (err) {
+
+      console.log(err)
+    }
+
     if (source.droppableId === destination.droppableId) {
-      debugger;
     }
   }
 
