@@ -19,20 +19,22 @@ const BoardsShow = () => {
   const [icebox, setIcebox] = useState([]);
   const [notStarted, setNotStarted] = useState([]);
   const [inProgress, setInProgress] = useState([]);
-  const [completed, setCompleted] = useState([]);        
+  const [completed, setCompleted] = useState([]); 
+  
+  const setStates = (board, items) => {
+    setBoard(board);
+    if (items) {
+      setItems(items);
+      setIcebox(items.filter(item => item.status === "Icebox"))
+      setNotStarted(items.filter(item => item.status === "Not Started"))
+      setInProgress(items.filter(item => item.status === "In-Progress"))
+      setCompleted(items.filter(item => item.status === "Completed"))
+    }
+  }
 
   useEffect(() => {
     const boardState = history.location.state
-    const setStates = (board, items) => {
-      setBoard(board);
-      if (items) {
-        setItems(items);
-        setIcebox(icebox.concat(items.filter(item => item.status === "Icebox")))
-        setNotStarted(items.filter(item => item.status === "Not Started"))
-        setInProgress(items.filter(item => item.status === "In-Progress"))
-        setCompleted(items.filter(item => item.status === "Completed"))
-      }
-    }
+
     const getBoard = async () => {
       try {
         const data = await axios.get(`/boards/${boardName}`)
@@ -65,7 +67,7 @@ const BoardsShow = () => {
     data.boardName = board.name
     try {
       const res = await axios.post('/items', data);
-      setItems(items.concat([res.data.item]))
+      setStates(board, items.concat([res.data.item]))
       toggleForm();
     } catch(err) {
       console.log(err.response)
