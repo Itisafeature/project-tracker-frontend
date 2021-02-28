@@ -11,7 +11,6 @@ const ItemList = ({items, type}) => (
     <Droppable droppableId={`${type}`}>
       {(provided) => (
         <div className={`${type}-items`} {...provided.droppableProps} ref={provided.innerRef}>
-          
           {items.map((item, index) => (
             <Draggable key={item.name} draggableId={item.name} index={index}>
               {(provided) => (

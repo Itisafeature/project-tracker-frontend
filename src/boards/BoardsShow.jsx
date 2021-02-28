@@ -25,10 +25,29 @@ const BoardsShow = () => {
     setBoard(board);
     if (items) {
       setItems(items);
-      setIcebox(items.filter(item => item.status === "Icebox"))
-      setNotStarted(items.filter(item => item.status === "Not Started"))
-      setInProgress(items.filter(item => item.status === "In-Progress"))
-      setCompleted(items.filter(item => item.status === "Completed"))
+      setIcebox(items.filter(item => item.status === "Icebox").sort((item1, item2) => item1.orderIndex - item2.orderIndex ))
+      setNotStarted(items.filter(item => item.status === "Not Started").sort((item1, item2) => item1.orderIndex- item2.orderIndex ))
+      setInProgress(items.filter(item => item.status === "In-Progress").sort((item1, item2) => item1.orderIndex - item2.orderIndex ))
+      setCompleted(items.filter(item => item.status === "Completed").sort((item1, item2) => item1.orderIndex - item2.orderIndex ))
+    }
+  }
+
+  const stateFuncMap = {
+    'icebox': {
+      setter: setIcebox,
+      getter: icebox
+    },
+    'not_started': {
+      setter: setNotStarted,
+      getter: notStarted,
+    },
+    'in_progress': {
+      setter: setInProgress,
+      getter: inProgress,
+    },
+    'completed': {
+      setter: setCompleted,
+      getter: completed,
     }
   }
 
@@ -74,8 +93,19 @@ const BoardsShow = () => {
     }
   }
 
+  
+  const reorder = (type, startIndex, endIndex) => {
+    const newList = Array.from(stateFuncMap[type].getter); 
+    const [movedElement] = newList.splice(startIndex, 1);
+    newList.splice(endIndex, 0, movedElement)
+    stateFuncMap[type].setter(newList);
+  }
+
   const onDragEnd = async ({source, destination}) => {
     if (!destination) return;
+    if (source.droppableId === destination.droppableId) {
+      reorder(source.droppableId, source.index, destination.index);
+    }
 
     try {
       await axios.patch('/items/updatePositions', {
@@ -87,9 +117,6 @@ const BoardsShow = () => {
     } catch (err) {
 
       console.log(err)
-    }
-
-    if (source.droppableId === destination.droppableId) {
     }
   }
 
