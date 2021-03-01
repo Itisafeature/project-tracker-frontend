@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
-import useOnClick from '../hooks/onClick';
+import { titleize } from '../helpers/helpers';
 import ItemsContainer from '../items/ItemsContainer';
 import ItemsNew from '../items/ItemsNew';
 import '../assets/BoardsShow.scss';
