@@ -35,19 +35,23 @@ const BoardsShow = () => {
   const stateFuncMap = {
     'icebox': {
       setter: setIcebox,
-      getter: icebox
+      getter: icebox,
+      order: 0
     },
     'not_started': {
       setter: setNotStarted,
       getter: notStarted,
+      order: 1
     },
     'in_progress': {
       setter: setInProgress,
       getter: inProgress,
+      order: 2
     },
     'completed': {
       setter: setCompleted,
       getter: completed,
+      order: 3
     }
   }
 
@@ -92,32 +96,44 @@ const BoardsShow = () => {
       console.log(err.response)
     }
   }
-
   
   const reorder = (type, startIndex, endIndex) => {
     const newList = Array.from(stateFuncMap[type].getter); 
+    const shiftedElement = newList[endIndex]
     const [movedElement] = newList.splice(startIndex, 1);
     newList.splice(endIndex, 0, movedElement)
     stateFuncMap[type].setter(newList);
+    return {movedElement, shiftedElement};
   }
 
   const onDragEnd = async ({source, destination}) => {
     if (!destination) return;
+
     if (source.droppableId === destination.droppableId) {
-      reorder(source.droppableId, source.index, destination.index);
+      const {movedElement, shiftedElement} = reorder(source.droppableId, source.index, destination.index);
+
+      try {
+        await axios.patch('/items/updatePositions', {
+          sourceItemOrderIndex: movedElement.orderIndex,
+          destinationItemOrderIndex: shiftedElement.orderIndex,
+          destinationStatus: titleize(destination.droppableId),
+          boardName: board.name
+        }) // not restful
+      } catch (err) {
+  
+        console.log(err)
+      }
     }
 
-    try {
-      await axios.patch('/items/updatePositions', {
-        sourceIndex: source.index,
-        destinationIndex: destination.index,
-        destinationStatus: destination.droppableId,
-        boardName: board.name
-      }) // not restful
-    } catch (err) {
+    // let newDestination = Object.assign({}, destination);
+    // while (!shiftedElement) {
+    //   if (newDestination.droppableId === destination.droppableId) {
+    //     shiftedElement = stateFuncMap[newDestination.droppableId].getter[newDestination.index + 1]
+    //   } else {
+    //     shiftedElement = stateFuncMap[newDestination.droppableId].getter[0]
+    //   }
+    // }
 
-      console.log(err)
-    }
   }
 
   if (board) {
