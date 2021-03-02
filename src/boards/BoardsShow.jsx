@@ -106,6 +106,18 @@ const BoardsShow = () => {
     return {movedElement, shiftedElement};
   }
 
+  const move = (sourceType, destinationType, sourceIndex, destinationIndex) => {
+    const newSource = Array.from(stateFuncMap[sourceType].getter);
+    const newDestination = Array.from(stateFuncMap[destinationType].getter)
+    const shiftedElement = (typeof newDestination[destinationIndex] !== 'undefined') ? 
+    newDestination[destinationIndex] : newDestination[destinationIndex -1];
+    const [movedElement] = newSource.splice(sourceIndex, 1);
+    newDestination.splice(destinationIndex, 0, movedElement)
+    stateFuncMap[sourceType].setter(newSource);
+    stateFuncMap[destinationType].setter(newDestination);
+    return {movedElement, shiftedElement}
+  }
+
   const onDragEnd = async ({source, destination}) => {
     if (!destination) return;
 
@@ -122,18 +134,22 @@ const BoardsShow = () => {
       } catch (err) {
   
         console.log(err)
-      }
+      } 
+    } else {
+      const { movedElement, shiftedElement } = move(source.droppableId, destination.droppableId, source.index, destination.index)
+
+      try {
+        await axios.patch('/items/updatePositions', {
+          sourceItemOrderIndex: movedElement.orderIndex,
+          destinationItemOrderIndex: shiftedElement.orderIndex,
+          destinationStatus: titleize(destination.droppableId),
+          boardName: board.name
+        }) // not restful
+      } catch (err) {
+  
+        console.log(err)
+      } 
     }
-
-    // let newDestination = Object.assign({}, destination);
-    // while (!shiftedElement) {
-    //   if (newDestination.droppableId === destination.droppableId) {
-    //     shiftedElement = stateFuncMap[newDestination.droppableId].getter[newDestination.index + 1]
-    //   } else {
-    //     shiftedElement = stateFuncMap[newDestination.droppableId].getter[0]
-    //   }
-    // }
-
   }
 
   if (board) {
