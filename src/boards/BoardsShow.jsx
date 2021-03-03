@@ -125,12 +125,16 @@ const BoardsShow = () => {
       const {movedElement, shiftedElement} = reorder(source.droppableId, source.index, destination.index);
 
       try {
-        await axios.patch('/items/updatePositions', {
+        const res =await axios.patch('/items/updatePositions', {
           sourceItemOrderIndex: movedElement.orderIndex,
           destinationItemOrderIndex: shiftedElement.orderIndex,
           destinationStatus: titleize(destination.droppableId),
           boardName: board.name
         }) // not restful
+        const updatedItems = res.data.items
+        for (let i=0; i < updatedItems.length; i++) {
+          items.find((item) => item.name === updatedItems[i].name).orderIndex = updatedItems[i].orderIndex
+        }
       } catch (err) {
   
         console.log(err)
