@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { titleize } from '../helpers/helpers';
 import ItemsContainer from '../items/ItemsContainer';
+import ItemCardModal from '../items/ItemCardModal';
 import ItemsNew from '../items/ItemsNew';
 import '../assets/BoardsShow.scss';
 
@@ -11,11 +12,12 @@ const BoardsShow = () => {
   const history = useHistory();
   const { boardName } = useParams();
   const itemNewRef = useRef();
-  const [loaded, setLoaded] = useState(false);
+  const itemCardModalRef = useRef();
   const [board, setBoard] = useState('');
   const [items, setItems] = useState([]);
-  const [error, setError] = useState(false);
+  const [selectedItem, setSelectedItem] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [showItemCard, setShowItemCard] = useState(false);
   const [icebox, setIcebox] = useState([]);
   const [notStarted, setNotStarted] = useState([]);
   const [inProgress, setInProgress] = useState([]);
@@ -80,6 +82,38 @@ const BoardsShow = () => {
     return () => window.removeEventListener("click", handleModalOffClick)
 
   }, [showForm])
+
+  useEffect(() => {
+    const handleModalOffClick = e => {
+      if (e.target && itemCardModalRef.current && e.target !== itemCardModalRef.current && !itemCardModalRef.current.contains(e.target)) {
+        toggleItemCardModal();
+      }
+    };
+    if (toggleItemCardModal) window.addEventListener("click", handleModalOffClick);
+    return () => window.removeEventListener("click", handleModalOffClick)
+
+  }, [showItemCard])
+
+  useEffect(() => {
+    const handleModalOffClick = e => {
+      if (e.target && itemNewRef.current && e.target !== itemNewRef.current && !itemNewRef.current.contains(e.target)) {
+        toggleForm();
+      }
+    };
+    if (showForm) window.addEventListener("click", handleModalOffClick);
+    return () => window.removeEventListener("click", handleModalOffClick)
+
+  }, [showForm])
+
+  const setItemState = (item) => {
+    console.log('here')
+    setSelectedItem(item);
+    toggleItemCardModal();
+  }
+
+  const toggleItemCardModal = () => {
+    setShowItemCard(!showItemCard);
+  }
 
   const toggleForm = () => {
     setShowForm(!showForm)
@@ -171,8 +205,11 @@ const BoardsShow = () => {
         <div ref={itemNewRef}>
           {showForm ? <ItemsNew handleNewItem={handleNewItem} /> : null }
         </div>
+        <div ref={itemCardModalRef}>
+          {showItemCard ? <ItemCardModal item={selectedItem} /> : null}
+        </div>
         <DragDropContext onDragEnd={onDragEnd}>
-          {items.length > 0 ? <ItemsContainer icebox={icebox} notStarted={notStarted} inProgress={inProgress} completed={completed} /> : null }
+          {items.length > 0 ? <ItemsContainer setItemState={setItemState} icebox={icebox} notStarted={notStarted} inProgress={inProgress} completed={completed} /> : null }
         </DragDropContext>
       </div>
     )
