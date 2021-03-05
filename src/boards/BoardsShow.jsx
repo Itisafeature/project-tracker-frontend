@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
+import useModal from '../hooks/modal';
 import { titleize } from '../helpers/helpers';
 import ItemsContainer from '../items/ItemsContainer';
 import ItemCardModal from '../items/ItemCardModal';
@@ -72,38 +73,27 @@ const BoardsShow = () => {
     boardState === undefined ? getBoard() : boardState.items ? setStates(boardState, boardState.items) : setStates(boardState, null)
   }, [boardName, history.location.state])
 
-  useEffect(() => {
-    const handleModalOffClick = e => {
-      if (e.target && itemNewRef.current && e.target !== itemNewRef.current && !itemNewRef.current.contains(e.target)) {
-        toggleForm();
-      }
-    };
-    if (showForm) window.addEventListener("click", handleModalOffClick);
-    return () => window.removeEventListener("click", handleModalOffClick)
+  // useEffect(() => {
+  //   const handleModalOffClick = e => {
+  //     if (e.target && itemNewRef.current && e.target !== itemNewRef.current && !itemNewRef.current.contains(e.target)) {
+  //       toggleForm();
+  //     }
+  //   };
+  //   if (showForm) window.addEventListener("click", handleModalOffClick);
+  //   return () => window.removeEventListener("click", handleModalOffClick)
 
-  }, [showForm])
+  // }, [showForm])
 
-  useEffect(() => {
-    const handleModalOffClick = e => {
-      if (e.target && itemCardModalRef.current && e.target !== itemCardModalRef.current && !itemCardModalRef.current.contains(e.target)) {
-        toggleItemCardModal();
-      }
-    };
-    if (toggleItemCardModal) window.addEventListener("click", handleModalOffClick);
-    return () => window.removeEventListener("click", handleModalOffClick)
+  // useEffect(() => {
+  //   const handleModalOffClick = e => {
+  //     if (e.target && itemCardModalRef.current && e.target !== itemCardModalRef.current && !itemCardModalRef.current.contains(e.target)) {
+  //       toggleItemCardModal();
+  //     }
+  //   };
+  //   if (showItemCard) window.addEventListener("click", handleModalOffClick);
+  //   return () => window.removeEventListener("click", handleModalOffClick)
 
-  }, [showItemCard])
-
-  useEffect(() => {
-    const handleModalOffClick = e => {
-      if (e.target && itemNewRef.current && e.target !== itemNewRef.current && !itemNewRef.current.contains(e.target)) {
-        toggleForm();
-      }
-    };
-    if (showForm) window.addEventListener("click", handleModalOffClick);
-    return () => window.removeEventListener("click", handleModalOffClick)
-
-  }, [showForm])
+  // }, [showItemCard])
 
   const setItemState = (item) => {
     console.log('here')
@@ -118,6 +108,10 @@ const BoardsShow = () => {
   const toggleForm = () => {
     setShowForm(!showForm)
   }
+
+  useModal(itemNewRef, toggleForm, showForm)
+  useModal(itemCardModalRef, toggleItemCardModal, setItemState, selectedItem);
+
 
   const handleNewItem = async (data, e) => {
     e.preventDefault();
