@@ -73,30 +73,7 @@ const BoardsShow = () => {
     boardState === undefined ? getBoard() : boardState.items ? setStates(boardState, boardState.items) : setStates(boardState, null)
   }, [boardName, history.location.state])
 
-  // useEffect(() => {
-  //   const handleModalOffClick = e => {
-  //     if (e.target && itemNewRef.current && e.target !== itemNewRef.current && !itemNewRef.current.contains(e.target)) {
-  //       toggleForm();
-  //     }
-  //   };
-  //   if (showForm) window.addEventListener("click", handleModalOffClick);
-  //   return () => window.removeEventListener("click", handleModalOffClick)
-
-  // }, [showForm])
-
-  // useEffect(() => {
-  //   const handleModalOffClick = e => {
-  //     if (e.target && itemCardModalRef.current && e.target !== itemCardModalRef.current && !itemCardModalRef.current.contains(e.target)) {
-  //       toggleItemCardModal();
-  //     }
-  //   };
-  //   if (showItemCard) window.addEventListener("click", handleModalOffClick);
-  //   return () => window.removeEventListener("click", handleModalOffClick)
-
-  // }, [showItemCard])
-
   const setItemState = (item) => {
-    console.log('here')
     setSelectedItem(item);
     toggleItemCardModal();
   }
@@ -109,8 +86,20 @@ const BoardsShow = () => {
     setShowForm(!showForm)
   }
 
-  useModal(itemNewRef, toggleForm, showForm)
-  useModal(itemCardModalRef, toggleItemCardModal, setItemState, selectedItem);
+  const handleItemNewClick = (e) => {
+    if (
+      e.target && itemNewRef.current && e.target !== itemNewRef.current && !itemNewRef.current.contains(e.target)
+    ) toggleForm();
+  }
+
+  const handleItemCardModalClick = e => {
+    if (
+      e.target && itemCardModalRef.current && e.target !== itemCardModalRef.current && !itemNewRef.current.contains(e.target)
+    ) setItemState('')
+  }
+
+  useModal(handleItemNewClick, showForm)
+  useModal(handleItemCardModalClick, showItemCard);
 
 
   const handleNewItem = async (data, e) => {
@@ -203,7 +192,7 @@ const BoardsShow = () => {
           {showItemCard ? <ItemCardModal item={selectedItem} /> : null}
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
-          {items.length > 0 ? <ItemsContainer setItemState={setItemState} icebox={icebox} notStarted={notStarted} inProgress={inProgress} completed={completed} /> : null }
+          {items.length > 0 ? <ItemsContainer toggleItemCardModal={toggleItemCardModal} setItemState={setItemState} icebox={icebox} notStarted={notStarted} inProgress={inProgress} completed={completed} /> : null }
         </DragDropContext>
       </div>
     )

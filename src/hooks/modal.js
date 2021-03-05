@@ -1,18 +1,8 @@
 import { useEffect } from 'react';
-const useModal = (ref, setFn, showFn, obj) => {
+const useModal = (handleClick, showFn) => {
   useEffect(() => {
-    const handleModalOffClick = e => {
-      if (
-        e.target &&
-        ref.current &&
-        e.target !== ref.current &&
-        !ref.current.contains(e.target)
-      ) {
-        obj ? setFn(obj) : setFn();
-      }
-    };
-    if (showFn) window.addEventListener('click', handleModalOffClick);
-    return () => window.removeEventListener('click', handleModalOffClick);
+    if (showFn) window.addEventListener('click', handleClick);
+    return () => window.removeEventListener('click', handleClick);
   }, [showFn]);
 };
 

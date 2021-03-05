@@ -6,7 +6,7 @@ const ItemCardModal = ({item}) => {
   return (
   <div className="item-card_modal">
       <h1>{item.name}</h1>
-      <textarea readOnly>{item.notes}</textarea>
+      <textarea value={item.notes} readOnly></textarea>
   </div>
   )
 }
