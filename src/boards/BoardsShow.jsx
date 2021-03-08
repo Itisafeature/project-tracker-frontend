@@ -37,6 +37,16 @@ const BoardsShow = () => {
     }
   }
 
+  useEffect(() => {
+    if (icebox && notStarted && inProgress && completed) {
+      const newItems = icebox.concat(notStarted, inProgress, completed)
+      newItems.forEach((item, index) => item.orderIndex = index)
+      setItems(sortByOrderIndex(newItems))
+    }
+  }, [icebox, notStarted, inProgress, completed])
+
+
+
   const stateFuncMap = {
     'icebox': {
       setter: setIcebox,
@@ -119,12 +129,20 @@ const BoardsShow = () => {
       console.log(err.response)
     }
   }
+
+  const handleSaveOrder = async () => {
+    await axios.patch('/items/updatePositions', {
+      boardName: board.name,
+      items
+    })
+  }
   
   const reorder = (type, startIndex, endIndex) => {
     const newList = Array.from(stateFuncMap[type].getter); 
     const [movedElement] = newList.splice(startIndex, 1);
     newList.splice(endIndex, 0, movedElement)
-    return {movedElement};
+
+    stateFuncMap[type].setter(newList);
   }
 
 
@@ -135,15 +153,9 @@ const BoardsShow = () => {
     newDestination.splice(destinationIndex, 0, movedElement);
 
     movedElement.status = stateFuncMap[destinationType].status
+
     stateFuncMap[sourceType].setter(newSource);
     stateFuncMap[destinationType].setter(newDestination);
-    const newItems = icebox.concat(notStarted, inProgress, completed)
-    debugger;
-    newItems.forEach((item, index) => item.orderIndex = index)
-    debugger;
-
-
-    return {movedElement}
   }
 
   const onDragEnd = async (result) => {
@@ -152,53 +164,17 @@ const BoardsShow = () => {
     if (!destination) return;
 
     if (source.droppableId === destination.droppableId) {
-      const {movedElement, shiftedElement} = reorder(source.droppableId, source.index, destination.index);
-
-      // try {
-      //   const res =await axios.patch('/items/updatePositions', {
-      //     sourceItemOrderIndex: movedElement.orderIndex,
-      //     destinationItemOrderIndex: shiftedElement.orderIndex,
-      //     destinationStatus: titleize(destination.droppableId),
-      //     boardName: board.name
-      //   }) // not restful
-      //   const updatedItems = res.data.items
-      //   for (let i=0; i < updatedItems.length; i++) {
-      //     items.find((item) => item.name === updatedItems[i].name).orderIndex = updatedItems[i].orderIndex
-      //   }
-      // } catch (err) {
-  
-      //   console.log(err)
-      // } 
+      reorder(source.droppableId, source.index, destination.index);
     } else {
-      const { movedElement, shiftedElement } = move(source.droppableId, destination.droppableId, source.index, destination.index)
-
-    //   try {
-    //     const res = await axios.patch('/items/updatePositions', {
-    //       sourceItemOrderIndex: movedElement.orderIndex,
-    //       destinationItemOrderIndex: shiftedElement.orderIndex - 1,
-    //       destinationStatus: titleize(destination.droppableId),
-    //       boardName: board.name
-    //     }) // not restful
-
-    //     const updatedItems = res.data.items
-    //     for (let i=0; i < updatedItems.length; i++) {
-    //       items.find((item) => item.name === updatedItems[i].name).orderIndex = updatedItems[i].orderIndex
-    //     }
-    //   } catch (err) {
-  
-    //     console.log(err)
-    //   } 
-    // }
+      move(source.droppableId, destination.droppableId, source.index, destination.index);
     }
-    
-    setStates(board, sortByOrderIndex(items))
   }
 
   if (board) {
     return (
       <div className={`board-container ${showForm ? 'modal-active' : ''}`}>
         <div className="board-header">
-          <button className="save-order">Save Item Order</button>
+          <button className="save-order" onClick={handleSaveOrder}>Save Item Order</button>
           <h1 className="board_name">{board.name}</h1>
           <button className="add-item" onClick={toggleForm}>Add Item</button>
         </div>
