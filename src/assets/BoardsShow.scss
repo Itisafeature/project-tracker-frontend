@@ -7,10 +7,9 @@
     justify-content: center;
     position: relative;
 
-    .add-item {
+    button {
       position: absolute;
       top: 40%;
-      right: 20%;
       width: 10%;
       font-size: 1.2em;
       background: rgb(245, 58, 58);
@@ -21,6 +20,14 @@
       -ms-border-radius: 25px;
       -o-border-radius: 25px;
       color: aqua;
+    }
+
+    .save-order {
+      left: 20%;
+    }
+
+    .add-item {
+      right: 20%;
     }
   }
 

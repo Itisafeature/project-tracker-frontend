@@ -135,8 +135,8 @@ const BoardsShow = () => {
     newDestination.splice(destinationIndex, 0, movedElement);
 
     movedElement.status = stateFuncMap[destinationType].status
-    await stateFuncMap[sourceType].setter(newSource);
-    await stateFuncMap[destinationType].setter(newDestination);
+    stateFuncMap[sourceType].setter(newSource);
+    stateFuncMap[destinationType].setter(newDestination);
     const newItems = icebox.concat(notStarted, inProgress, completed)
     debugger;
     newItems.forEach((item, index) => item.orderIndex = index)
@@ -198,6 +198,7 @@ const BoardsShow = () => {
     return (
       <div className={`board-container ${showForm ? 'modal-active' : ''}`}>
         <div className="board-header">
+          <button className="save-order">Save Item Order</button>
           <h1 className="board_name">{board.name}</h1>
           <button className="add-item" onClick={toggleForm}>Add Item</button>
         </div>
