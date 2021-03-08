@@ -122,59 +122,33 @@ const BoardsShow = () => {
   
   const reorder = (type, startIndex, endIndex) => {
     const newList = Array.from(stateFuncMap[type].getter); 
-    const shiftedElement = newList[endIndex]
     const [movedElement] = newList.splice(startIndex, 1);
     newList.splice(endIndex, 0, movedElement)
-    stateFuncMap[type].setter(newList);
-    return {movedElement, shiftedElement};
+    return {movedElement};
   }
 
 
-  const move = (sourceType, destinationType, sourceIndex, destinationIndex) => {
+  const move = async (sourceType, destinationType, sourceIndex, destinationIndex) => {
     const newSource = Array.from(stateFuncMap[sourceType].getter);
     const newDestination = Array.from(stateFuncMap[destinationType].getter)
-    const checkShifted = typeof newDestination[destinationIndex] !== 'undefined'
-    let shiftedElement;
     const [movedElement] = newSource.splice(sourceIndex, 1);
-    const deepCopyMovedElement = JSON.parse(JSON.stringify(movedElement))
-    let deepCopyShiftedElement;
-
-    if (checkShifted) {
-      shiftedElement = newDestination[destinationIndex]
-      deepCopyShiftedElement = JSON.parse(JSON.stringify(shiftedElement));
-      shiftedElement.orderIndex = shiftedElement.orderIndex;
-      movedElement.orderIndex = shiftedElement.orderIndex -1;
-    } else {
-      shiftedElement = newDestination[destinationIndex - 1]
-      if (typeof shiftedElement !== 'undefined') {
-        deepCopyShiftedElement = JSON.parse(JSON.stringify(shiftedElement));
-      } else {
-      
-      }
-      movedElement.orderIndex = shiftedElement.orderIndex + 1 || 0;
-    }
+    newDestination.splice(destinationIndex, 0, movedElement);
 
     movedElement.status = stateFuncMap[destinationType].status
-
-    if (deepCopyMovedElement.orderIndex < deepCopyShiftedElement.orderIndex) {
-      items.slice(items.indexOf(movedElement) + 1, items.indexOf(shiftedElement)).map((item) => item.orderIndex = item.orderIndex -1);
-    } else {
-      items.slice(items.indexOf(shiftedElement) + 1, items.indexOf(movedElement) - 1).map((item) => item.orderIndex = item.orderIndex + 1);
-
-    }
-
-    newDestination.splice(destinationIndex, 0, movedElement)
+    await stateFuncMap[sourceType].setter(newSource);
+    await stateFuncMap[destinationType].setter(newDestination);
+    const newItems = icebox.concat(notStarted, inProgress, completed)
     debugger;
-    setStates(board, sortByOrderIndex(items))
-    stateFuncMap[sourceType].setter(newSource);
-    stateFuncMap[destinationType].setter(newDestination);
+    newItems.forEach((item, index) => item.orderIndex = index)
+    debugger;
 
-    return {movedElement, shiftedElement}
+
+    return {movedElement}
   }
 
   const onDragEnd = async (result) => {
     const {source, destination} = result;
-    debugger;
+
     if (!destination) return;
 
     if (source.droppableId === destination.droppableId) {
@@ -216,6 +190,8 @@ const BoardsShow = () => {
     //   } 
     // }
     }
+    
+    setStates(board, sortByOrderIndex(items))
   }
 
   if (board) {
