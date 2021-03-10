@@ -2,9 +2,7 @@ import React from 'react';
 
 const NoteCard = (note) => {
   return (
-    <div>
-      Hello World
-    </div>
+    <textarea readOnly value={note.content}></textarea>
   )
 }
 

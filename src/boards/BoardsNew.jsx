@@ -9,7 +9,7 @@ const BoardsNew = () => {
   const history = useHistory();
   const { register, control, handleSubmit, errors } = useForm({
     defaultValues: {
-      items: [{name: "", notes: ""}]
+      items: [{name: "", notes: {content: ""}}]
     }
   });
   const { fields, append, remove } = useFieldArray({
@@ -22,6 +22,7 @@ const BoardsNew = () => {
     e.preventDefault();
     try {
       const res = await axios.post('/boards/new', data)
+      console.log(res.data)
       history.push({pathname: `/boards/${res.data.board.name}`, state: res.data.board})
     } catch (err) {
       console.log(err)
@@ -77,10 +78,10 @@ const BoardsNew = () => {
               cols="30"
               rows="6"
               className="item-notes"
-              id={`new-board-item-notes${index}`}
-              name={`items[${index}].notes`}
+              id={`new-board-item-note${index}`}
+              name={`items[${index}].notes.content`}
               ref={register()}
-              defaultValue={item.notes}
+              defaultValue={item.content}
             />
             <button className="remove-item" type="button" onClick={() => remove(index)}>Remove Item</button>
           </div>

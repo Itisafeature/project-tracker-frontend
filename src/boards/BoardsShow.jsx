@@ -110,7 +110,7 @@ const BoardsShow = () => {
 
   const handleItemCardModalClick = e => {
     if (
-      e.target && itemCardModalRef.current && e.target !== itemCardModalRef.current && !itemNewRef.current.contains(e.target)
+      e.target && itemCardModalRef.current && e.target !== itemCardModalRef.current && !itemCardModalRef.current.contains(e.target)
     ) setItemState('')
   }
 
