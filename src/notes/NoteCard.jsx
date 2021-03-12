@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NoteCard = (note) => {
+const NoteCard = ({note}) => {
   return (
     <textarea readOnly value={note.content}></textarea>
   )

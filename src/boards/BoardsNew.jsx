@@ -22,7 +22,6 @@ const BoardsNew = () => {
     e.preventDefault();
     try {
       const res = await axios.post('/boards/new', data)
-      console.log(res.data)
       history.push({pathname: `/boards/${res.data.board.name}`, state: res.data.board})
     } catch (err) {
       console.log(err)

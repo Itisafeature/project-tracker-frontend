@@ -80,7 +80,7 @@ const BoardsShow = () => {
     const getBoard = async () => {
       try {
         const data = await axios.get(`/boards/${boardName}`)
-        setStates(data.data.board, sortByOrderIndex(data.data.items))
+        setStates(data.data.board, sortByOrderIndex(data.data.board.items))
       } catch(err) {
         console.log(err.response)
       }
