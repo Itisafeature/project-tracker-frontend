@@ -182,7 +182,7 @@ const BoardsShow = () => {
           {showForm ? <ItemsNew handleNewItem={handleNewItem} /> : null }
         </div>
         <div ref={itemCardModalRef}>
-          {showItemCard ? <ItemCardModal item={selectedItem} /> : null}
+          {showItemCard ? <ItemCardModal item={selectedItem} boardName={board.name} /> : null}
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
           {items.length > 0 ? <ItemsContainer toggleItemCardModal={toggleItemCardModal} setItemState={setItemState} icebox={icebox} notStarted={notStarted} inProgress={inProgress} completed={completed} /> : null }
