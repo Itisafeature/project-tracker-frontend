@@ -7,7 +7,6 @@ const NotesContainer = ({boardName, item}) => {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-
     const getNotes = async () => {
       try {
         const res = await axios.get(`/items/${item.name}/notes?boardName=${boardName}`)
@@ -16,20 +15,25 @@ const NotesContainer = ({boardName, item}) => {
         console.log(err);
       }
     }
-
     getNotes();
-
   }, [boardName, item])
   
-  const onSubmit = async (data, e) => {
+  const newNoteSubmit = async (data, e) => {
     e.preventDefault();
+    try {
+      data.note.itemId = item.id;
+      const res = await axios.post('/notes', data)
+      setNotes([res.data.note].concat(notes))
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
 
       <div className="notes">
         {notes.length > 0 ? notes.map((note, index) => <NoteCard key={index} note={note} />) : <h3>Loading Notes</h3>}
-        <NotesNew onSubmit={onSubmit} />
+        <NotesNew newNoteSubmit={newNoteSubmit} />
       </div>
       
   )

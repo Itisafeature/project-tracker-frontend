@@ -2,8 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 
-const NotesNew = ({ onSubmit }) => {
+const NotesNew = ({ newNoteSubmit }) => {
   const { register, handleSubmit, errors } = useForm();
+
+  const onSubmit = (data, e) => {
+    newNoteSubmit(data, e);
+  }
 
   return (
     <div className="add-note">
