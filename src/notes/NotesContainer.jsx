@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
 import NotesNew from '../notes/NotesNew';
 import NoteCard from '../notes/NoteCard';
+import '../assets/NotesContainer.scss';
 
 const NotesContainer = ({boardName, item}) => {
   const [notes, setNotes] = useState([]);
@@ -24,18 +26,20 @@ const NotesContainer = ({boardName, item}) => {
       data.note.itemId = item.id;
       const res = await axios.post('/notes', data)
       setNotes([res.data.note].concat(notes))
+      return res.data.note;
     } catch (err) {
       console.log(err);
     }
   }
 
   return (
-
-      <div className="notes">
-        {notes.length > 0 ? notes.map((note, index) => <NoteCard key={index} note={note} />) : <h3>Loading Notes</h3>}
+      <div className="notes-container">
+        <div className="notes-list">
+          {notes.length > 0 ? notes.map((note, index) => <NoteCard key={index} note={note} />) : <h3>Loading Notes</h3>}
+          
+        </div>
         <NotesNew newNoteSubmit={newNoteSubmit} />
       </div>
-      
   )
 
 }

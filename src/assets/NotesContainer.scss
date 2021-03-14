@@ -1,0 +1,14 @@
+.notes-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
+  .notes-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80%;
+    overflow-y: auto;
+  }
+}

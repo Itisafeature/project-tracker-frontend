@@ -1,0 +1,28 @@
+.add-note {
+
+  form {
+    display: flex;
+    justify-content: center;
+
+    label {
+      align-self: center;
+      font-weight: 800;
+    }
+
+    textarea {
+      resize: none;
+      margin: 2%;
+    }
+
+    button {
+      align-self: center;
+      padding: 5px;
+      border-radius: 25px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      -ms-border-radius: 25px;
+      -o-border-radius: 25px;
+      outline: none;
+    }
+  }
+}

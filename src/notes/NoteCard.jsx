@@ -1,8 +1,9 @@
 import React from 'react';
+import '../assets/NoteCard.scss';
 
 const NoteCard = ({note}) => {
   return (
-    <textarea readOnly value={note.content}></textarea>
+    <textarea className="note_content" readOnly value={note.content}></textarea>
   )
 }
 

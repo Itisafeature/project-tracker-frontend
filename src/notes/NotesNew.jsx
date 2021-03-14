@@ -1,12 +1,14 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import '../assets/NotesNew.scss';
 
 
 const NotesNew = ({ newNoteSubmit }) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, reset} = useForm();
 
   const onSubmit = (data, e) => {
-    newNoteSubmit(data, e);
+    const res = newNoteSubmit(data, e);
+    reset(res);
   }
 
   return (
