@@ -17,7 +17,8 @@ const NotesContainer = ({boardName, item}) => {
         console.log(err);
       }
     }
-    getNotes();
+    if (item) getNotes();
+    
   }, [boardName, item])
   
   const newNoteSubmit = async (data, e) => {
