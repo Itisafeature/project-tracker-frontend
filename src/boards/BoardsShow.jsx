@@ -172,7 +172,7 @@ const BoardsShow = () => {
 
   if (board) {
     return (
-      <div className={`board-container ${showForm ? 'modal-active' : ''}`}>
+      <div className={`board-container ${showForm || showItemCard ? 'modal-active' : ''}`}>
         <div className="board-header">
           <button className="save-order" onClick={handleSaveOrder}>Save Item Order</button>
           <h1 className="board_name">{board.name}</h1>

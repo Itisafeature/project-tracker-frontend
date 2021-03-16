@@ -10,7 +10,6 @@ $error-red: #ff0000;
   transform: translate(-50%, -50%);
   background: #ffffff;
   box-shadow: 0 0 20px black;
-  height: 40%;
   width: 30%;
 
   h1 {
@@ -49,6 +48,7 @@ $error-red: #ff0000;
     .add-item_button {
       padding: 10px;
       margin-top: 5%;
+      margin-bottom: 5%;
       border-radius: 25px;
       -webkit-border-radius: 25px;
       -moz-border-radius: 25px;
