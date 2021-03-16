@@ -5,10 +5,7 @@
   overflow: hidden;
 
   .notes-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 80%;
+    text-align: center;
     overflow-y: auto;
   }
 }
