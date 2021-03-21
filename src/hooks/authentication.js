@@ -9,14 +9,12 @@ const useAuthentication = history => {
       if (localStorage.getItem('currentUserPT')) {
         try {
           const res = await axios.get('/auth');
-          debugger;
-          localStorage.setItem();
+          setUserStorage(res);
         } catch (err) {
           console.log(err.response);
         }
       }
     };
-
     checkAuth();
   }, []);
 
@@ -36,17 +34,16 @@ const useAuthentication = history => {
       setUserStorage(data.data);
       history.push('/boards');
     } catch (err) {
-      console.log(err.response);
+      console.log(err);
     }
   };
 
   const setUserStorage = data => {
-    debugger;
     localStorage.setItem(
       'currentUserPT',
       JSON.stringify({
-        username: data.data.user.username,
-        email: data.data.user.email,
+        username: data.user.username,
+        email: data.user.email,
       })
     );
     return null;
