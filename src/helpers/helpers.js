@@ -15,3 +15,16 @@ export const processForm = form => {
   console.log(formDataObj);
   return formDataObj;
 };
+
+export const errorHelper = data => {
+  let error;
+  switch (data) {
+    case 'Unauthorized':
+      error = 'Please signup or login to view this page';
+      break;
+    default:
+      error = 'Something went wrong please try again';
+      break;
+  }
+  return error;
+};

@@ -4,17 +4,21 @@ import axios from 'axios';
 const useAuthentication = history => {
   const [user, setUser] = useState({});
 
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     try {
-  //       const res = await axios.get('/auth');
-  //     } catch (err) {
-  //       console.log(err.response);
-  //     }
-  //   };
+  useEffect(() => {
+    const checkAuth = async () => {
+      if (localStorage.getItem('currentUserPT')) {
+        try {
+          const res = await axios.get('/auth');
+          debugger;
+          localStorage.setItem();
+        } catch (err) {
+          console.log(err.response);
+        }
+      }
+    };
 
-  //   checkAuth();
-  // }, []);
+    checkAuth();
+  }, []);
 
   const processForm = form => {
     const formData = new FormData(form);
@@ -32,16 +36,17 @@ const useAuthentication = history => {
       setUserStorage(data.data);
       history.push('/boards');
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
     }
   };
 
   const setUserStorage = data => {
+    debugger;
     localStorage.setItem(
       'currentUserPT',
       JSON.stringify({
-        id: data.data.id,
-        username: data.data.username,
+        username: data.data.user.username,
+        email: data.data.user.email,
       })
     );
     return null;
