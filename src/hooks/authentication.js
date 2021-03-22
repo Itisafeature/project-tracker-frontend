@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const useAuthentication = history => {
+const useAuthentication = (history, setIsAuthenticated) => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -10,8 +10,10 @@ const useAuthentication = history => {
         try {
           const res = await axios.get('/auth');
           setUserStorage(res);
+          setIsAuthenticated(true);
+          history.goBack();
         } catch (err) {
-          console.log(err.response);
+          console.log(err);
         }
       }
     };
@@ -31,7 +33,8 @@ const useAuthentication = history => {
     const formDataObj = processForm(form);
     try {
       const data = await axios.post(`/${type}`, formDataObj);
-      setUserStorage(data.data);
+      setUserStorage(data);
+      setIsAuthenticated(true);
       history.push('/boards');
     } catch (err) {
       console.log(err);
@@ -42,8 +45,8 @@ const useAuthentication = history => {
     localStorage.setItem(
       'currentUserPT',
       JSON.stringify({
-        username: data.user.username,
-        email: data.user.email,
+        username: data.data.user.username,
+        email: data.data.user.email,
       })
     );
     return null;
@@ -53,6 +56,7 @@ const useAuthentication = history => {
     try {
       await axios.post('/logout');
       localStorage.removeItem('currentUserPT');
+      setIsAuthenticated(false);
     } catch (err) {
       console.log(err);
     }
