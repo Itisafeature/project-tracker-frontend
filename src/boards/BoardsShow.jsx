@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
 import useModal from '../hooks/modal';
-import { titleize } from '../helpers/helpers';
 import ItemsContainer from '../items/ItemsContainer';
 import ItemCardModal from '../items/ItemCardModal';
 import ItemsNew from '../items/ItemsNew';

@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 
 const useAuthentication = (history, setIsAuthenticated) => {
-  const [user, setUser] = useState({});
-
   useEffect(() => {
     const checkAuth = async () => {
       if (localStorage.getItem('currentUserPT')) {
@@ -11,7 +9,6 @@ const useAuthentication = (history, setIsAuthenticated) => {
           const res = await axios.get('/auth');
           setUserStorage(res);
           setIsAuthenticated(true);
-          history.goBack();
         } catch (err) {
           console.log(err);
         }
@@ -37,6 +34,7 @@ const useAuthentication = (history, setIsAuthenticated) => {
       setIsAuthenticated(true);
       history.push('/boards');
     } catch (err) {
+      setIsAuthenticated(false);
       console.log(err);
     }
   };

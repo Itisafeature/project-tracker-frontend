@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({ children, isAuthenticated, ...rest }) => {
+const PublicRoute = ({ children, isAuthenticated, ...rest }) => {
   return (
     <Route {...rest} render={({ location }) =>
         !isAuthenticated ? (children) :
-        (<Redirect to={{ pathname: '/login' }} />)
+        (<Redirect to={{ pathname: '/boards' }} />)
       }
     />
   )
 }
 
-export default PrivateRoute;
+export default PublicRoute;
