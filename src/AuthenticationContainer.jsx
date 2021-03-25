@@ -1,19 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { titleize } from './helpers/helpers.js';
 import RootInformation from './RootInformation';
 import './assets/AuthenticationContainer.scss'
 
-
-const AuthenticationContainer = ({type, createOrAuthenticateUser}) => {
+const AuthenticationContainer = ({type, createOrAuthenticateUser, setIsError, setErrorMsg}) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
 
   const form = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    createOrAuthenticateUser(form.current, type)
+    createOrAuthenticateUser(form.current, type, setIsError, setErrorMsg)
   }
 
   return (
