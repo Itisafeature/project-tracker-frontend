@@ -10,7 +10,7 @@ import PublicRoute from './routes/PublicRoute';
 import BoardsIndex from './boards/BoardsIndex';
 import BoardsNew from './boards/BoardsNew';
 import BoardsShow from './boards/BoardsShow';
-import AuthorizationCheckLoading from './shared/AuthorizationCheckLoading';
+import Loading from './shared/Loading';
 import ErrorNotification from './shared/ErrorNotification';
 
 function App() {
@@ -82,7 +82,7 @@ function App() {
       </div>
     );
   } else {
-    return <AuthorizationCheckLoading />;
+    return <Loading />;
   }
 }
 

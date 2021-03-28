@@ -4,10 +4,12 @@ import axios from 'axios';
 import { errorHelper } from '../helpers/helpers';
 import '../assets/BoardsIndex.scss'
 import ErrorNotification from '../shared/ErrorNotification';
+import Loading from '../shared/Loading';
 
 const BoardsIndex = () => {
-  const [boards, setBoards] = useState([])
-  const [error, setError] = useState(false); 
+  const [boards, setBoards] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false); 
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
@@ -16,16 +18,21 @@ const BoardsIndex = () => {
         const data = await axios.get('/boards');
         setBoards(data.data.boards);
       } catch(err) {
-        setError(true);
+        setIsError(true);
         setErrorMsg(errorHelper(err.response.data));
       }      
+      setIsLoading(false);
     }
     getBoards();
   }, [])
 
+  if (isLoading) {
+    return <Loading />
+  }
+
   return (
     <>
-      {error && <ErrorNotification msg={errorMsg} />}
+      {isError && <ErrorNotification msg={errorMsg} />}
       <div className="boards-container">
         <h1>Here are your Boards!</h1>
         <div>
